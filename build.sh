@@ -17,3 +17,6 @@ mkdir webrtc-checkout
 cd webrtc-checkout
 fetch --nohooks webrtc
 gclient sync
+
+gn gen out/Stub
+ninja -C out/Stub peerconnection_client
