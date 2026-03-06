@@ -69,3 +69,30 @@ Default Channel Map: front-left,front-right
 Default Sink: RDPSink
 Default Source: RDPSource
 Cookie: 7ae2:0d0e
+
+/////////////////////////////////
+ubuntu22@NYX:~/webrtc/test$ glxinfo | head -20
+name of display: :0
+display: :0  screen: 0
+direct rendering: Yes
+server glx vendor string: SGI
+server glx version string: 1.4
+server glx extensions:
+    GLX_ARB_context_flush_control, GLX_ARB_create_context,
+    GLX_ARB_create_context_no_error, GLX_ARB_create_context_profile,
+    GLX_ARB_fbconfig_float, GLX_ARB_framebuffer_sRGB, GLX_ARB_multisample,
+    GLX_EXT_create_context_es2_profile, GLX_EXT_create_context_es_profile,
+    GLX_EXT_fbconfig_packed_float, GLX_EXT_framebuffer_sRGB,
+    GLX_EXT_import_context, GLX_EXT_libglvnd, GLX_EXT_no_config_context,
+    GLX_EXT_texture_from_pixmap, GLX_EXT_visual_info, GLX_EXT_visual_rating,
+    GLX_MESA_copy_sub_buffer, GLX_OML_swap_method, GLX_SGIS_multisample,
+    GLX_SGIX_fbconfig, GLX_SGIX_pbuffer, GLX_SGIX_visual_select_group,
+    GLX_SGI_make_current_read
+client glx vendor string: Mesa Project and SGI
+client glx version string: 1.4
+client glx extensions:
+    GLX_ARB_context_flush_control, GLX_ARB_create_context,
+ubuntu22@NYX:~/webrtc/test$ lspci
+21af:00:00.0 3D controller: Microsoft Corporation Device 008e
+3df1:00:00.0 System peripheral: Red Hat, Inc. Virtio file system (rev 01)
+5582:00:00.0 SCSI storage controller: Red Hat, Inc. Virtio console (rev 01)
