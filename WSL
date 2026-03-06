@@ -1,0 +1,11 @@
+PS C:\Users\35748> wsl --version
+WSL 版本: 2.6.3.0
+内核版本: 6.6.87.2-1
+WSLg 版本: 1.0.71
+MSRDC 版本: 1.2.6353
+Direct3D 版本: 1.611.1-81528511
+DXCore 版本: 10.0.26100.1-240331-1435.ge-release
+Windows: 10.0.26200.7840
+
+sudo apt install -y pulseaudio alsa-utils
+aplay /usr/share/sounds/alsa/Front_Center.wav
