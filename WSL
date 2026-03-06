@@ -12,3 +12,60 @@ aplay /usr/share/sounds/alsa/Front_Center.wav
 
 arecord -d 5 -f cd test.wav
 aplay test.wav
+
+ubuntu22@NYX:~/webrtc/test$ arecord -L
+null
+    Discard all samples (playback) or generate zero samples (capture)
+default
+    Playback/recording through the PulseAudio sound server
+samplerate
+    Rate Converter Plugin Using Samplerate Library
+speexrate
+    Rate Converter Plugin Using Speex Resampler
+jack
+    JACK Audio Connection Kit
+oss
+    Open Sound System
+pulse
+    PulseAudio Sound Server
+upmix
+    Plugin for channel upmix (4,6,8)
+vdownmix
+    Plugin for channel downmix (stereo) with a simple spacialization
+ubuntu22@NYX:~/webrtc/test$ aplay -L
+null
+    Discard all samples (playback) or generate zero samples (capture)
+default
+    Playback/recording through the PulseAudio sound server
+samplerate
+    Rate Converter Plugin Using Samplerate Library
+speexrate
+    Rate Converter Plugin Using Speex Resampler
+jack
+    JACK Audio Connection Kit
+oss
+    Open Sound System
+pulse
+    PulseAudio Sound Server
+upmix
+    Plugin for channel upmix (4,6,8)
+vdownmix
+    Plugin for channel downmix (stereo) with a simple spacialization
+
+/////////
+ubuntu22@NYX:~/webrtc/test$ pactl info
+Server String: unix:/mnt/wslg/PulseServer
+Library Protocol Version: 35
+Server Protocol Version: 35
+Is Local: yes
+Client Index: 15
+Tile Size: 65472
+User Name: wslg
+Host Name: NYX
+Server Name: pulseaudio
+Server Version: 17.0-25-gc3305
+Default Sample Specification: s16le 2ch 44100Hz
+Default Channel Map: front-left,front-right
+Default Sink: RDPSink
+Default Source: RDPSource
+Cookie: 7ae2:0d0e
