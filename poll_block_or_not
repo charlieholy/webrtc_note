@@ -1,0 +1,49 @@
+block
+/////////////CPU 0%
+#include <stdio.h>
+#include <poll.h>
+#include <unistd.h>
+
+int main() {
+    struct pollfd fds[1];
+    fds[0].fd = 0;         // 监听标准输入
+    fds[0].events = POLLIN;
+
+    printf("阻塞 poll 演示，CPU 0%！\n");
+
+    while (1) {
+        // 阻塞等待，没有事件就休眠
+        int ret = poll(fds, 1, -1);
+
+        if (ret > 0 && fds[0].revents & POLLIN) {
+            printf("收到输入！\n");
+            char buf[10];
+            read(0, buf, 10);
+        }
+    }
+    return 0;
+}
+//////////////////////////// no_block CPU 100%
+#include <stdio.h>
+#include <poll.h>
+#include <unistd.h>
+
+int main() {
+    struct pollfd fds[1];
+    fds[0].fd = 0;
+    fds[0].events = POLLIN;
+
+    printf("非阻塞 poll 演示，CPU 100%！\n");
+
+    while (1) {
+        // 非阻塞，立刻返回
+        int ret = poll(fds, 1, 0);
+
+        if (ret > 0 && fds[0].revents & POLLIN) {
+            printf("收到输入！\n");
+            char buf[10];
+            read(0, buf, 10);
+        }
+    }
+    return 0;
+}
