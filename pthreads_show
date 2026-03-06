@@ -1,0 +1,102 @@
+static inline struct task_struct *next_thread(const struct task_struct *p)
+{
+	return list_entry_rcu(p->thread_group.next,
+			      struct task_struct, thread_group);
+}
+
+////
+#include <linux/module.h>
+#include <linux/fs.h>
+#include <linux/sched.h>
+#include <linux/sched/task.h>
+#include <linux/miscdevice.h>
+#include <linux/uaccess.h>
+
+static ssize_t my_read(struct file *file, char __user *buf,
+                        size_t count, loff_t *ppos)
+{
+    pid_t pid;
+    struct task_struct *task, *t;
+    int ret;
+
+    // 从用户空间读取传入的 pid
+    ret = copy_from_user(&pid, buf, sizeof(pid));
+    if (ret) {
+        printk("copy_from_user failed\n");
+        return -EFAULT;
+    }
+
+    printk("=========================================\n");
+    printk("用户传入 PID: %d\n", pid);
+
+    // 根据 pid 找进程 task_struct
+    rcu_read_lock();
+    task = pid_task(find_vpid(pid), PIDTYPE_PID);
+    if (!task) {
+        printk("找不到进程\n");
+        rcu_read_unlock();
+        return -ESRCH;
+    }
+
+    printk("进程 %d 下所有线程:\n", pid);
+
+    // 遍历线程组（所有线程）
+    t = task;
+    do {
+        printk("线程 ID: %d\n", t->pid);
+    } while_each_thread(task, t);
+
+    rcu_read_unlock();
+    printk("=========================================\n");
+
+    return sizeof(pid);
+}
+
+static const struct file_operations fops = {
+    .owner = THIS_MODULE,
+    .read  = my_read,
+};
+
+static struct miscdevice misc = {
+    .minor = MISC_DYNAMIC_MINOR,
+    .name  = "mythread",
+    .fops  = &fops,
+};
+
+static int __init my_init(void)
+{
+    misc_register(&misc);
+    printk("驱动加载成功 /dev/mythread\n");
+    return 0;
+}
+
+static void __exit my_exit(void)
+{
+    misc_deregister(&misc);
+    printk("驱动卸载\n");
+}
+
+module_init(my_init);
+module_exit(my_exit);
+MODULE_LICENSE("GPL");//////
+////////////
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+int main(int argc, char *argv[]) {
+    int pid = atoi(argv[1]);
+    int fd = open("/dev/mythread", O_RDWR);
+
+    read(fd, &pid, sizeof(pid));
+    close(fd);
+    return 0;
+}
+//////////////
+=========================================
+用户传入 PID: 162719
+进程 162719 下所有线程:
+线程 ID: 162719
+线程 ID: 162720
+线程 ID: 162722
+=========================================
