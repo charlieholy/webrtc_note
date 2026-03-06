@@ -1,0 +1,10 @@
+(gdb) disas
+Dump of assembler code for function __GI___pthread_self:
+=> 0x00007ffff6c9b510 <+0>:     endbr64
+   0x00007ffff6c9b514 <+4>:     mov    %fs:0x10,%rax
+   0x00007ffff6c9b51d <+13>:    ret
+End of assembler dump.
+
+% fs 是 per-thread /per-task 的寄存器
+每个线程都有自己的 % fs 基地址
+每个线程读 % fs:0x10 得到自己的 pthread ID
