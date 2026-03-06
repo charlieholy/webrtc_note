@@ -1,0 +1,10 @@
+(gdb) frame 14
+#14 0x000059f1d60c5f1f in webrtc::CompositeMediaEngine::Init (this=0x78c6ac005f20) at ../../media/base/media_engine.cc:341
+341       voice().Init();
+(gdb) p voice_engine_
+$1 = {__ptr_ = 0x78c6ac0277e0, __deleter_ = {<No data fields>}}
+(gdb) p voice_engine_.__ptr_
+$2 = (webrtc::VoiceEngineInterface *) 0x78c6ac0277e0
+(gdb) p *voice_engine_.__ptr_
+$3 = {<webrtc::RtpHeaderExtensionQueryInterface> = {_vptr$RtpHeaderExtensionQueryInterface = 0x59f1d71db530 <vtable for webrtc::WebRtcVoiceEngine+16>,
+    static _vtable$ = <optimized out>}, static _vtable$ = <optimized out>}
