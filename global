@@ -1,0 +1,2 @@
+(gdb) p LogMessage::log_thread_
+$3 = false
