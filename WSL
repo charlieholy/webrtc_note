@@ -9,3 +9,6 @@ Windows: 10.0.26200.7840
 
 sudo apt install -y pulseaudio alsa-utils
 aplay /usr/share/sounds/alsa/Front_Center.wav
+
+arecord -d 5 -f cd test.wav
+aplay test.wav
