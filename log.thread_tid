@@ -1,0 +1,31 @@
+#include <stdio.h>
+#include <pthread.h>
+#include <sys/syscall.h>
+#include <unistd.h>
+
+// 🔥 你要的打印宏：自动打印 【线程TID + 文件名 + 行号】
+#define LOG(...) \
+    printf("[%d] (%s:%d): ", (int)syscall(SYS_gettid), __FILE__, __LINE__); \
+    printf(__VA_ARGS__); \
+    printf("\n")
+
+// 子线程函数
+void* thread_func(void* arg) {
+    LOG("我是子线程");
+    return NULL;
+}
+
+int main() {
+    LOG("我是主线程");
+
+    // 创建一个子线程
+    pthread_t thread;
+    pthread_create(&thread, NULL, thread_func, NULL);
+    pthread_join(thread, NULL);
+
+    return 0;
+}
+//////////////////////
+ubuntu22@NYX:~/webrtc/src/out/Stub$ ./a.out
+[169681] (t.c:19): 我是主线程
+[169682] (t.c:14): 我是子线程
