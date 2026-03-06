@@ -7,7 +7,7 @@ Direct3D 版本: 1.611.1-81528511
 DXCore 版本: 10.0.26100.1-240331-1435.ge-release
 Windows: 10.0.26200.7840
 
-sudo apt install -y pulseaudio alsa-utils
+sudo apt install -y pulseaudio alsa-utils //
 aplay /usr/share/sounds/alsa/Front_Center.wav
 
 arecord -d 5 -f cd test.wav
@@ -71,6 +71,7 @@ Default Source: RDPSource
 Cookie: 7ae2:0d0e
 
 /////////////////////////////////
+sudo apt install mesa-utils -y //
 ubuntu22@NYX:~/webrtc/test$ glxinfo | head -20
 name of display: :0
 display: :0  screen: 0
